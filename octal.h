@@ -1,23 +1,23 @@
-#ifndef DECIMAL_H
-#define DECIMAL_H
+#ifndef OCTAL_H
+#define OCTAL_H
 
 #include <iostream>
 using namespace std;
 
-class decimal
+class octal
 {
 public:
-    friend ostream &operator<<(ostream &, const decimal &);
+    friend ostream &operator<<(ostream &, const octal &);
 public:
-    decimal(long = 0);
-    decimal operator+(const decimal &) const;
-    decimal operator-( decimal &);
+    octal(long = 0);
+    octal operator+(const octal &) const;
+    octal operator-( octal &);
 private:
     short dec[30];
 
 };
 /*constructor predeterminado*/
-decimal::decimal(long valor)
+octal::octal(long valor)
 {
   for(int i = 0; i <= 29; i++)
       dec[i] = 0;
@@ -25,22 +25,22 @@ decimal::decimal(long valor)
   /*coloca los digitos del argumento dentro del arreglo*/
   for(int j = 29; valor != 0 && j >= 0; j--)
   {
-      dec[j] = valor % 10; //residuo del valor
-      valor /= 10;
+      dec[j] = valor % 8; //residuo del valor
+      valor /= 8;
   }
 
 }
 
-decimal decimal::operator+(const decimal &op2) const
+octal octal::operator+(const octal &op2) const
 {
-    decimal temp;
+    octal temp;
     int acarreo = 0;
     for(int i = 29; i >= 0; i--)
     {
-        temp.dec[i] = dec[i] + op2.dec[i] + acarreo;
-        if(temp.dec[i] > 9)
+        temp.dec[i] = dec[i] + op2.dec[i] - acarreo;
+        if(temp.dec[i] > 7)
         {
-            temp.dec[i] %= 10; //reduce a 0-9
+            temp.dec[i] %= 8; //reduce a 0-9
             acarreo = 1;
         }
         else
@@ -48,33 +48,34 @@ decimal decimal::operator+(const decimal &op2) const
     }
     return temp;
 }
-decimal decimal::operator-(decimal &op3)
+octal octal::operator-(octal &op3)
 {
-    decimal temp;
+    octal temp;
     int acarreo = 0;
-
     for(int i = 29; i >= 0; i--)
     {
-        if(op3.dec[i] > (dec[i] + acarreo)){
 
-             temp.dec[i] = op3.dec[i] - (dec[i] + acarreo);
-
+        //op3 es el segundo numero
+        if(op3.dec[i]>(dec[i] + acarreo)){
+            dec[i-1] -= 1;
+            acarreo = 8;
         }
-        temp.dec[i] = (dec[i] + acarreo) - op3.dec[i] ;
-        if(temp.dec[i] > 9)
+
+        temp.dec[i] = (dec[i] + acarreo) - op3.dec[i];
+
+        if(temp.dec[i] > 7)
         {
-            temp.dec[i] %= 10; //reduce a 0-9
+            temp.dec[i] %= 8; //reduce a 0-9
             acarreo = 1;
         }
         else
             acarreo = 0;
     }
-
     return temp;
 }
 
 /*operador de salida sobrecargado*/
-ostream& operator<<(ostream &salida, const decimal &num)
+ostream& operator<<(ostream &salida, const octal &num)
 {
     int i;
     for(i = 0; (num.dec[i] == 0) && (i <= 29); i++);
@@ -88,4 +89,4 @@ ostream& operator<<(ostream &salida, const decimal &num)
     return salida;
 }
 
-#endif // DECIMAL_H
+#endif // OCTAL_H
