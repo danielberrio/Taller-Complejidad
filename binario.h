@@ -1,16 +1,21 @@
+#ifndef BINARIO_H
+#define BINARIO_H
+
 #include <iostream>
 using namespace std;
+class binario
+{
+    friend ostream &operator<<(ostream &, const binario &);
 
-class binario{
-    friend ostream &operator<<(ostream &,const binario &);
 public:
     binario(long = 0);
-    binario operator+(const binario &) const;// Sobrecargar el +
-    binario operator-(binario &);// Sobrecargar el -
+    //declaramos los operadores a sobrecargar
+    binario operator+(const binario &) const;
+    binario operator-(binario &);
+    virtual void menu() const;
 private:
-    short bin[40];
+    short bin[40]; //tamaño del vector binario
 };
-
 
 /*constructor predeterminado; convierte un entero decimal en un objeto binario*/
 binario::binario(long valor)
@@ -19,20 +24,25 @@ binario::binario(long valor)
         bin[i] = 0;
 
     /*coloca los digitos del argumento dentro del arreglo*/
-    for(int j = 39; valor != 0 && j >= 0; j--){
-        bin[j] = valor % 2; //  Deja el residuo de la division del valor entre dos
+    for(int j = 39; valor != 0 && j >= 0; j--)
+    {
+        bin[j] = valor % 2; //deja el resduo de la división del valor entre 2
         valor /= 2;
     }
 }
 
+//sobrecarga del operador suma
 binario binario::operator+(const binario &op2) const
 {
-    binario temp;
+    binario temp; //temporal para la operación
     int acarreo = 0;
 
-    for(int i = 39; i >= 0; i--){
+    for(int i = 39; i >= 0; i--)
+    {
         temp.bin[i] = bin[i] + op2.bin[i] + acarreo;
-        if(temp.bin[i] > 1){
+        //si el numero es mayor a 1 se lleva su acarreo
+        if(temp.bin[i] > 1)
+        {
             temp.bin[i] %= 2; //reduce a 0 - 1
             acarreo = 1;
         }
@@ -41,7 +51,7 @@ binario binario::operator+(const binario &op2) const
     }
     return temp;
 }
-
+//sobrecarga del operador -
 binario binario::operator-(binario &op2)
 {
     binario temp;
@@ -50,10 +60,9 @@ binario binario::operator-(binario &op2)
     for(int i = 39; i >= 0; i--)
     {
 
-        //Resta
-        temp.bin[i] = bin[i] - op2.bin[i] - acarreo;
+        temp.bin[i] = bin[i] - op2.bin[i]-acarreo;
 
-        if(temp.bin[i] > 1)
+         if(temp.bin[i] > 1)
         {
             temp.bin[i] %= 2; //reduce a 0 - 1
             acarreo = 1;
@@ -61,28 +70,28 @@ binario binario::operator-(binario &op2)
         else
             acarreo = 0;
 
-        if(temp.bin[i] == -1)
-        {
-            acarreo = 1;
-            temp.bin[i] = 1;
+        /*si la resta da como resultado un negativo eentonces se cambia el valor y el carreo
+        para que así se ajuste al resultado que se quiere llegar*/
 
+        if(temp.bin[i]==-1)
+        {
+            acarreo=1;
+            temp.bin[i] = 1;
         }
         else
         {
-            if(temp.bin[i] ==  -2)
+            if(temp.bin[i]==-2)
             {
-                acarreo = 1;
-                temp.bin[i] = 0;
+                acarreo=1;
+                temp.bin[i]=0;
             }
         }
+
+
+
     }
     return temp;
-
-
 }
-
-
-
 /*operador de salida sobrecargado*/
 ostream& operator<<(ostream &salida, const binario &num)
 {
@@ -97,3 +106,5 @@ ostream& operator<<(ostream &salida, const binario &num)
             salida << num.bin[i];
     return salida;
 }
+
+#endif // BINARIO_H
