@@ -10,10 +10,11 @@ public:
     friend ostream &operator<<(ostream &, const decimal &);
 public:
     decimal(long = 0);
+    //declaramos los operadores a sobrecargar
     decimal operator+(const decimal &) const;
     decimal operator-( decimal &);
 private:
-    short dec[30];
+    short dec[30]; //tamaño del vector decimal
 
 };
 /*constructor predeterminado*/
@@ -30,14 +31,15 @@ decimal::decimal(long valor)
   }
 
 }
-
+//sobrecarga del operador suma
 decimal decimal::operator+(const decimal &op2) const
 {
-    decimal temp;
+    decimal temp; //declaramos un temporal para la operacion
     int acarreo = 0;
-    for(int i = 29; i >= 0; i--)
+    for(int i = 29; i >= 0; i--) //ciclo para recorrer cada posicion del arreglo
     {
         temp.dec[i] = dec[i] + op2.dec[i] + acarreo;
+        //si el numero es mayor a 9 se lleva su acarreo
         if(temp.dec[i] > 9)
         {
             temp.dec[i] %= 10; //reduce a 0-9
@@ -48,19 +50,23 @@ decimal decimal::operator+(const decimal &op2) const
     }
     return temp;
 }
+
+//sobrecarga del operador -
 decimal decimal::operator-(decimal &op3)
 {
-    decimal temp;
+    decimal temp; //temporal para la operación
     int acarreo = 0;
 
-    for(int i = 29; i >= 0; i--)
+    for(int i = 29; i >= 0; i--) //ciclo para recorrer cada posicion del arreglo
     {
-        if(op3.dec[i] > (dec[i] + acarreo)){
+        if(op3.dec[i] > (dec[i] + acarreo)) //condicion por si el segundo número ingresado es mayor que el primero
+        {
 
              temp.dec[i] = op3.dec[i] - (dec[i] + acarreo);
 
         }
         temp.dec[i] = (dec[i] + acarreo) - op3.dec[i] ;
+        //si el numero es mayor a 9 se lleva su acarreo
         if(temp.dec[i] > 9)
         {
             temp.dec[i] %= 10; //reduce a 0-9
