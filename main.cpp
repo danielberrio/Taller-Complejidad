@@ -1,7 +1,7 @@
 #include "binario.h"
 #include "decimal.h"
 #include "octal.h"
-
+#include <conio.h>
 using namespace std;
 
 int main()
@@ -22,9 +22,9 @@ int main()
         {
         case 1:
 
-            system("tput reset"); // limpiar la consola
+            system("cls"); // limpiar la consola
             int dec1, dec2, resp1;
-
+            cout<<"\t\t**** DECIMAL ****\n\n";
             cout<<"¿QUE DESEA? \n";
             cout<<"\n1.SUMAR";
             cout<<"\n2.RESTAR";
@@ -34,9 +34,9 @@ int main()
             cout<<endl;
 
             if(resp1 == 1)
-            {
 
-                cout<<"\t\t**** DECIMAL ****\n\n";
+            {
+                //suma decimal
                 cout<<"Ingrese el primer numero de la suma: ";
                 cin>>dec1;
                 cout<<"Ingrese el segundo numero de la suma: ";
@@ -51,7 +51,7 @@ int main()
             {
                 if(resp1 == 2)
                 {
-                    cout<<"\t\t**** DECIMAL ****\n\n";
+                    //resta decimal
                     cout<<"Ingrese el primer numero de la resta: ";
                     cin>>dec1;
                     cout<<"Ingrese el segundo numero de la resta: ";
@@ -72,9 +72,9 @@ int main()
             break;
 
         case 2:
-            system("tput reset"); // limpiar la consola
+            system("cls"); // limpiar la consola
             int oct1, oct2, resp2;
-
+            cout<<"\t\t**** OCTAL ****\n\n";
             cout<<"¿QUE DESEA? \n";
             cout<<"\n1.SUMAR";
             cout<<"\n2.RESTAR";
@@ -85,25 +85,11 @@ int main()
 
             if(resp2 == 1)
             {
-
-                cout<<"\t\t**** OCTAL ****\n\n";
-                cout<<"Ingrese el primer numero de la suma: ";
-                cin>>oct1;
-
-                cout<<"En el sistema octal llega hasta 7. \n\n";
-                cout<<"\t\t**** OCTAL ****\n\n";
                 cout<<"Ingrese el primer numero de la suma: ";
                 cin>>oct1;
 
                 cout<<"Ingrese el segundo numero de la suma: ";
                 cin>>oct2;
-
-
-
-                cout<<"En el sistema octal llega hasta 7. \n\n";
-                cout<<"\t\t**** OCTAL ****\n\n";
-                cout<<"Ingrese el primer numero de la suma: ";
-                cin>>oct1;
 
                 octal n1(oct1);
                 octal n2(oct2);
@@ -115,7 +101,6 @@ int main()
             {
                 if(resp2 == 2)
                 {
-                    cout<<"\t\t**** OCTAL ****\n\n";
                     cout<<"Ingrese el primer numero de la resta: ";
                     cin>>oct1;
                     cout<<"Ingrese el segundo numero de la resta: ";
@@ -136,9 +121,9 @@ int main()
             break;
 
         case 3:
-            system("tput reset"); // limpiar la consola
+            system("cls"); // limpiar la consola
             int bin1, bin2, resp3;
-
+            cout<<"\t\t**** BINARIO ****\n\n";
             cout<<"¿QUE DESEA? \n";
             cout<<"\n1.SUMAR";
             cout<<"\n2.RESTAR";
@@ -149,7 +134,6 @@ int main()
 
             if(resp3 == 1)
             {
-                cout<<"\t\t**** BINARIO ****\n\n";
                 cout<<"Ingrese el primer numero de la suma: ";
                 cin>>bin1;
                 cout<<"Ingrese el segundo numero de la suma: ";
@@ -164,7 +148,6 @@ int main()
             {
                 if(resp3 == 2)
                 {
-                    cout<<"\t\t**** BINARIO ****\n\n";
                     cout<<"Ingrese el primer numero de la resta: ";
                     cin>>bin1;
                     cout<<"Ingrese el segundo numero de la resta: ";
@@ -185,7 +168,7 @@ int main()
             break;
 
         case 4:
-            system("tput reset");
+            system("cls");
             cout<<"\nAdios"<<endl;
 
             break;
