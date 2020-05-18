@@ -16,6 +16,7 @@ private:
     short oct[30];
 
 };
+
 /*constructor predeterminado*/
 octal::octal(long valor)
 {
@@ -31,6 +32,7 @@ octal::octal(long valor)
 
 }
 
+//sobrecarga del operador +
 octal octal::operator+(const octal &op2) const
 {
     octal temp;
@@ -48,6 +50,8 @@ octal octal::operator+(const octal &op2) const
     }
     return temp;
 }
+
+//sobrecarga del operador -
 octal octal::operator-(octal &op3)
 {
     octal temp;
@@ -56,12 +60,14 @@ octal octal::operator-(octal &op3)
 
     for(int i = 29; i >= 0; i--)
     {
+        // Si el sgundo numero ingresado es mayor al primero se invierte el orden de la resta
         if(op3.oct[i] > (oct[i] + acarreo)){
 
              temp.oct[i] = op3.oct[i] - (oct[i] + acarreo);
 
         }
 
+        // Si el segundo numero ingresado es menor al primero la resta se hace normal
         if(oct[i] > (op3.oct[i] + acarreo)){
 
              temp.oct[i] = (oct[i] + acarreo) - op3.oct[i] ;
@@ -69,6 +75,7 @@ octal octal::operator-(octal &op3)
         }
         temp.oct[i] = (oct[i] + acarreo) - op3.oct[i] ;
 
+        // Si el numero es mayor que 7 se reduce
         if(temp.oct[i] > 7)
         {
             temp.oct[i] %= 8; //reduce a 0-7
